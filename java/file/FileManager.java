@@ -12,8 +12,6 @@ public class FileManager{
     private List<Handler> handlers;
     private Path path;
 
-    private FileManager() {}
-
     public FileManager(Path path) {
         handlers = new ArrayList<>();
         this.path = path;

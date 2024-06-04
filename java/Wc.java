@@ -6,6 +6,7 @@ import handlers.CountLinesHandler;
 import options.OptionsMapper;
 
 public class Wc {
+
     public static void main(String[] args) {
 
         OptionsMapper mapper = new OptionsMapper();
