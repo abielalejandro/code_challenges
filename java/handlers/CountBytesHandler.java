@@ -4,14 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import options.OptionsMapper;
 
-public class CountBytesHandler implements Handler{
+public class CountBytesHandler extends Handler{
 
     private String info;
-    private List<String> options = Arrays.asList("-c","--bytes");
     private OptionsMapper mapper;
     private Path path;
 
@@ -19,17 +16,12 @@ public class CountBytesHandler implements Handler{
         info="";
         this.mapper = mapper;
         this.path = path;
+        options =Arrays.asList("-c","--bytes");
     }
 
     private void execute() {
-        Optional<String> has = options
-            .stream()
-            .filter(op-> {
-                return this.mapper.hasOption(op);}
-            )
-            .findAny();
 
-        if (!has.isPresent()) return;
+        if (!hasArg(mapper)) return;
 
         try {
             byte[] bytes = Files.readAllBytes(path);

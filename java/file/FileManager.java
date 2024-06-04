@@ -7,7 +7,7 @@ import java.util.List;
 
 import handlers.Handler;
 
-public class FileManager implements Handler{
+public class FileManager{
 
     private List<Handler> handlers;
     private Path path;
@@ -28,7 +28,6 @@ public class FileManager implements Handler{
         return this;
     }
 
-    @Override
     public String info() {
         StringBuilder sb = new StringBuilder();
         for (Handler h: handlers) {
