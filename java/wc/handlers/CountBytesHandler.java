@@ -13,7 +13,7 @@ public class CountBytesHandler implements Handler {
     public CountBytesHandler() {
         info = "";
         this.option = Option.newBuilder("-c")
-                .description("Read num of bytes")
+                .description("Count num of bytes")
                 .longName("--bytes")
                 .required(false)
                 .build();
@@ -26,7 +26,7 @@ public class CountBytesHandler implements Handler {
             byte[] bytes = Files.readAllBytes(Path.of(file));
             info = bytes.length + "";
         } catch (IOException e) {
-            throw new RuntimeException(e);       
+            throw new RuntimeException(e);
         }
     }
 

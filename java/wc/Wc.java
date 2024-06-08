@@ -15,18 +15,20 @@ import handlers.HelpHandler;
 import options.OptionsMapper;
 
 public class Wc {
-    public Wc() {}
+    public Wc() {
+    }
 
     private String createTempFileFromStdIn() {
-        BufferedWriter bw = null ;
+        BufferedWriter bw = null;
         BufferedReader br = null;
         try {
-            File tmp = File.createTempFile("wcc","wcc");
+            File tmp = File.createTempFile("wcc", "wcc");
             tmp.deleteOnExit();
             br = new BufferedReader(new InputStreamReader(System.in));
             bw = Files.newBufferedWriter(tmp.toPath(), StandardCharsets.UTF_8);
             String line;
-            while ( (line = br.readLine())!=null) {
+            while (br.ready()) {
+                line = br.readLine();
                 bw.write(line);
                 bw.newLine();
             }
@@ -35,34 +37,32 @@ public class Wc {
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        }
-        finally{
+        } finally {
             try {
-                if (null!=br)
+                if (null != br)
                     br.close();
 
-                if (null!=bw)
+                if (null != bw)
                     bw.close();
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
-            
+
         }
         return "";
     }
+
     public void Run(String[] args) {
 
-        String file="";
+        String file = "";
         if (args.length > 0) {
             file = args[args.length - 1];
             if (!Path.of(file).toFile().isFile()) {
                 file = createTempFileFromStdIn();
+            } else {
+                args[args.length - 1] = "";
             }
-            else {
-                args[args.length-1] = "";
-            }
-        }
-        else {
+        } else {
             file = createTempFileFromStdIn();
         }
 
@@ -74,7 +74,7 @@ public class Wc {
         fileManager.addHandler(new CountBytesHandler());
         fileManager.addHandler(new CountLinesHandler());
         fileManager.addHandler(new CountWordsHandler());
-        fileManager.addHandler(new CountCharsHandler());        
+        fileManager.addHandler(new CountCharsHandler());
 
         fileManager.info();
     }

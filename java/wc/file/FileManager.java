@@ -21,7 +21,7 @@ public class FileManager {
     }
 
     private boolean hasArg(Option option) {
-        return mapper.hasOption(option.getShortName());
+        return mapper.hasOption(option.getLongName()) || mapper.hasOption(option.getShortName());
     }
 
     private boolean hasArg(String arg) {
@@ -29,10 +29,14 @@ public class FileManager {
     }
 
     private boolean canPrint(Handler h) {
-        if (h.getOption().getShortName().equals("-h")) return false;
-        if (!mapper.hasOptions()) return true;
+        if (h.getOption().getShortName().equals("-h")
+                || h.getOption().getShortName().equals("--help"))
+            return false;
+        if (!mapper.hasOptions())
+            return true;
         return hasArg(h.getOption());
     }
+
     public FileManager addHandler(Handler h) {
         this.handlers.add(h);
         return this;
@@ -49,7 +53,7 @@ public class FileManager {
 
     public void info() {
 
-        if (hasArg("-h")) {
+        if (hasArg("-h") || hasArg("--help")) {
             printHelp();
             return;
         }
@@ -59,17 +63,16 @@ public class FileManager {
         }
 
         if (!Path.of(file).toFile().isFile()) {
-            throw new IllegalArgumentException(String.format("%s It is not a file",file));
+            throw new IllegalArgumentException(String.format("%s It is not a file", file));
         }
-
 
         StringBuilder sb = new StringBuilder("");
         for (Handler h : handlers) {
-            if (!canPrint(h))            
+            if (!canPrint(h))
                 continue;
             sb.append(h.info(file)).append(" ");
         }
-        //sb.append(file);
+        // sb.append(file);
         System.err.println(sb.toString());
     }
 

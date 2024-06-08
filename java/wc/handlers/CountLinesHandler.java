@@ -15,7 +15,7 @@ public class CountLinesHandler implements Handler {
     public CountLinesHandler() {
         info = "";
         option = Option.newBuilder("-l")
-                .description("Read num of lines")
+                .description("Count num of lines")
                 .longName("--lines")
                 .required(false)
                 .build();

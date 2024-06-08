@@ -15,7 +15,7 @@ public class CountCharsHandler implements Handler {
     public CountCharsHandler() {
         info = "";
         this.option = Option.newBuilder("-m")
-                .description("Read num of chars")
+                .description("Count num of chars")
                 .longName("--chars")
                 .required(false)
                 .build();

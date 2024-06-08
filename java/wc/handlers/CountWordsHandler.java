@@ -15,7 +15,7 @@ public class CountWordsHandler implements Handler {
     public CountWordsHandler() {
         info = "";
         option = Option.newBuilder("-w")
-                .description("Read num of words")
+                .description("Count num of words")
                 .longName("--words")
                 .required(false)
                 .build();
